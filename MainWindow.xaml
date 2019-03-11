@@ -5,8 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:algebra_de_conjuntos"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Algebra de Conjuntos" Height="600" Width="800"
+        ResizeMode="NoResize">
+    <Grid Margin="10">
+        <DockPanel Background ="Black"  Margin="0,0,0,477">
+            <Label Foreground="White" FontSize="20px" Content="Algebra de Conjuntos" HorizontalAlignment="Left" Width="232" Margin="10,10"/>
+            <Button x:Name="btnOpenFile" HorizontalAlignment="Right" Click="BtnOpenFile_Click" Content="Carregar Arquivo" Width="100" Margin="10,10"/>
+        </DockPanel>
+
+        <ListBox x:Name="lstNomes" Margin="0,79,549,40" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Nome}"/>
+                        <TextBlock Text=" = "/>
+                        <TextBlock Text="{Binding Valor}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+ <!--
+                <ListView x:Name="lstNomes" HorizontalAlignment="Left" Height="460" Margin="0,79,0,0" VerticalAlignment="Top" Width="225" Grid.Row="0">
+            <ListView.View>
+                <GridView x:Name="grdNomes"  >
+                    <GridViewColumn Header="Nome" Width="60px" DisplayMemberBinding="{Binding Nome}"/>
+                    <GridViewColumn Header="Valor" Width="162px" DisplayMemberBinding="{Binding Valor}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+-->
+
+        <Grid Margin="230,79,0,12">
+            <Label Content="Selecione os conjuntos/elementos que deseja fazer a operação" Height="27" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="comboBoxA" Width="120" Height="40px" VerticalAlignment="Top"
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  HorizontalAlignment="Left"
+                  FontSize="20px"
+                  Margin="60px"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Nome"
+                  SelectedValuePath="Id"
+                  />
+            <ComboBox x:Name="comboBoxB" Width="120" Height="40px" VerticalAlignment="Top" 
+                  HorizontalContentAlignment="Center"
+                  VerticalContentAlignment="Center"
+                  FontSize="20px"
+                  HorizontalAlignment="Right"    
+                  Margin="60px"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Nome"
+                  SelectedValuePath="Id"/>
+
+            <WrapPanel Height="115" VerticalAlignment="Center" Margin="135,0">
+                <Button x:Name="btnPertence" Content="∈" FontSize="20px" Width="43" Height="35" Click="BtnPertence_Click" />
+                <Button x:Name="btnNaoPertence" Content="∉" FontSize="20px" Width="43" Height="35" Click="BtnNaoPertence_Click" />
+
+                <Button x:Name="btnContidoPropriamente" Content="⊂" FontSize="20px" Width="43" Height="35" Click="BtnContidoPropriamente_Click" />
+                <Button x:Name="btnNaoContidoPropriamente" Content="⊄" FontSize="20px" Width="43" Height="35" Click="BtnNaoContidoPropriamente_Click" />
+
+                <Button x:Name="btnContidoOuIgual" Content="⊆" FontSize="20px" Width="43" Height="35" Click="BtnContidoOuIgual_Click" />
+                <Button x:Name="btnNaoContidoOuIgual" Content="⊈" FontSize="20px" Width="43" Height="35" Click="BtnNaoContidoOuIgual_Click" />
+
+                <Button x:Name="btnContem" Content="⊃" FontSize="20px" Width="43" Height="35" Click="BtnContem_Click" />
+                <Button x:Name="btnNaoContem" Content="⊅" FontSize="20px" Width="43" Height="35" Click="BtnNaoContem_Click" />
+
+                <Button x:Name="btnUniao" Content="∪" FontSize="20px" Width="43" Height="35" Click="BtnUniao_Click" />
+                <Button x:Name="btnIntersecao" Content="∩" FontSize="20px" Width="43" Height="35" Click="BtnIntersecao_Click" />
+
+                <Button x:Name="btnProdutoCartesiano" Content="X" FontSize="20px" Width="43" Height="35" Click="BtnProdutoCartesiano_Click" />
+                <Button x:Name="btnConjuntoDasPartes" Content="P(A)" FontSize="20px" Width="43" Height="35" Click="BtnConjuntoDasPartes_Click" /> 
+            </WrapPanel>
+
+            <WrapPanel HorizontalAlignment="Center" Height="115" VerticalAlignment="Bottom" Width="215" Margin="150,0">
+                <TextBlock x:Name="txtSaida" TextWrapping="Wrap" TextAlignment="Center" Text="" Width="215" Height="115"/>
+            </WrapPanel>
+            <Button x:Name="btnReverterCart" Visibility="Hidden" Content="Reverter" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Center" Width="75" Click="ButtonReverterCartesiano_Click"/>
+            <Button x:Name="btnReverterPA" Visibility="Hidden" Content="Reverter" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Center" Width="75" Click="ButtonReverterPA_Click"/>
+        </Grid>
+        <Button Content="Limpar" HorizontalAlignment="Left" Margin="70,519,0,0" VerticalAlignment="Top" Width="75" Click="BtnLimpar_Click"/>
     </Grid>
 </Window>
