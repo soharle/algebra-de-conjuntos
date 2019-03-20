@@ -5,27 +5,27 @@ using System.Threading.Tasks;
 
 namespace algebra_de_conjuntos.Models
 {
-    public class Elemento
+    public class Element
     {
         public long Id { get; set; }
-        public string Nome { get; set; }
-        public string Valor { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
 
-        public Elemento()
+        public Element()
         {
             this.Id = IdGenerator.GenerateId();
         }
 
-        public Elemento(string valor)
+        public Element(string value)
         {
             this.Id = IdGenerator.GenerateId();
-            this.Valor = valor;
+            this.Value = value;
         }
-        public Elemento(string nome, string valor)
+        public Element(string name, string value)
         {
             this.Id = IdGenerator.GenerateId();
-            this.Nome = nome;
-            this.Valor = valor;
+            this.Name = name;
+            this.Value = value;
         }
 
     }

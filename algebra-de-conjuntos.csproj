@@ -55,12 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\ConjuntoOrElementDisplayable.cs" />
-    <Compile Include="Models\IdGenerator.cs" />
+    <Compile Include="Actions\Classification.cs" />
+    <Compile Include="Actions\OperatorReverse.cs" />
+    <Compile Include="Actions\Relationship.cs" />
+    <Compile Include="Models\SetOrElementDisplayable.cs" />
+    <Compile Include="Models\ElementWithValue.cs" />
+    <Compile Include="Models\PairElement.cs" />
+    <Compile Include="utils\IdGenerator.cs" />
     <Compile Include="utils\StringToModel.cs" />
-    <Compile Include="Models\Conjunto.cs" />
-    <Compile Include="Models\Elemento.cs" />
-    <Compile Include="Models\Operador.cs" />
+    <Compile Include="Models\Set.cs" />
+    <Compile Include="Models\Element.cs" />
+    <Compile Include="Actions\Operator.cs" />
+    <Compile Include="utils\TableauGenerator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

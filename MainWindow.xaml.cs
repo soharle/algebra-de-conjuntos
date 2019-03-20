@@ -26,16 +26,16 @@ namespace algebra_de_conjuntos
     public partial class MainWindow : Window
     {
 
-        public List<Conjunto> ListaConjuntos { get; set; }
-        public List<Elemento> ListaElementos { get; set; }
-        private ObservableCollection<ConjuntoOrElementDisplayable> Lista { get; set; }
+        public List<Set> ListaConjuntos { get; set; }
+        public List<Element> ListaElementos { get; set; }
+        private ObservableCollection<SetOrElementDisplayable> Lista { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            ListaConjuntos = new List<Conjunto>();
-            ListaElementos = new List<Elemento>();
-            Lista = new ObservableCollection<ConjuntoOrElementDisplayable>();
+            ListaConjuntos = new List<Set>();
+            ListaElementos = new List<Element>();
+            Lista = new ObservableCollection<SetOrElementDisplayable>();
             lstNomes.ItemsSource = Lista;
             comboBoxA.ItemsSource = Lista;
             comboBoxB.ItemsSource = Lista;
@@ -44,31 +44,31 @@ namespace algebra_de_conjuntos
 
         private void AtualizaLista()
         {
-            foreach (Conjunto c in ListaConjuntos)
+            foreach (Set c in ListaConjuntos)
             {
-                if (!Lista.ToList<ConjuntoOrElementDisplayable>().Exists(x => x.Id == c.Id))
+                if (!Lista.ToList<SetOrElementDisplayable>().Exists(x => x.Id == c.Id))
                 {
                     Lista.Add(
-                     new ConjuntoOrElementDisplayable
+                     new SetOrElementDisplayable
                      {
                          Id = c.Id,
-                         Nome = c.Nome,
-                         Valor = c.ElementosConjuntoToString()
+                         Name = c.Name,
+                         Value = c.ElementsSetToString()
                      });
                 }
 
             }
 
-            foreach (Elemento e in ListaElementos)
+            foreach (Element e in ListaElementos)
             {
-                if (!Lista.ToList<ConjuntoOrElementDisplayable>().Exists(x => x.Id == e.Id))
+                if (!Lista.ToList<SetOrElementDisplayable>().Exists(x => x.Id == e.Id))
                 {
                     Lista.Add(
-                    new ConjuntoOrElementDisplayable
+                    new SetOrElementDisplayable
                     {
                         Id = e.Id,
-                        Nome = e.Nome,
-                        Valor = e.Valor
+                        Name = e.Name,
+                        Value = e.Value
                     });
                 }
             }
@@ -117,12 +117,12 @@ namespace algebra_de_conjuntos
 
                 conversor.Load(newContent);
 
-                foreach (Conjunto c in conversor.Conjuntos)
+                foreach (Set c in conversor.Sets)
                 {
                     ListaConjuntos.Add(c);
                 }
 
-                foreach (Elemento el in conversor.Elementos)
+                foreach (Element el in conversor.Elements)
                 {
                     ListaElementos.Add(el);
                 }
@@ -131,9 +131,9 @@ namespace algebra_de_conjuntos
             }
         }
 
-        private Conjunto GetConjuntoByID(string id)
+        private Set GetConjuntoByID(string id)
         {
-            foreach (Conjunto c in ListaConjuntos)
+            foreach (Set c in ListaConjuntos)
             {
                 if (c.Id.ToString().Equals(id))
                 {
@@ -143,9 +143,9 @@ namespace algebra_de_conjuntos
             return null;
         }
 
-        private Elemento GetElementoByID(string id)
+        private Element GetElementoByID(string id)
         {
-            foreach (Elemento e in ListaElementos)
+            foreach (Element e in ListaElementos)
             {
                 if (e.Id.ToString().Equals(id))
                 {
@@ -160,16 +160,16 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Elemento elementoA = GetElementoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Element elementoA = GetElementoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (elementoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.Pertence(elementoA, conjuntoB);
+                    resultado = Operator.Belongs(elementoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
 
-                    txtSaida.Text = $"O elemento {elementoA.Valor} {resultadoTxt} pertence ao conjunto {conjuntoB.Nome}";
+                    txtSaida.Text = $"O elemento {elementoA.Value} {resultadoTxt} pertence ao conjunto {conjuntoB.Name}";
                 }
                 else
                 {
@@ -182,16 +182,16 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Elemento elementoA = GetElementoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Element elementoA = GetElementoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (elementoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.Pertence(elementoA, conjuntoB);
+                    resultado = Operator.Belongs(elementoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
 
-                    txtSaida.Text = $"O elemento {elementoA.Valor} {resultadoTxt} pertence ao conjunto {conjuntoB.Nome}";
+                    txtSaida.Text = $"O elemento {elementoA.Value} {resultadoTxt} pertence ao conjunto {conjuntoB.Name}";
                 }
                 else
                 {
@@ -204,15 +204,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.ContidoPropriamente(conjuntoA, conjuntoB);
+                    resultado = Operator.ProperlyContain(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} está propriamente contido no {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} está propriamente contido no {conjuntoB.Name}";
 
                 }
 
@@ -228,15 +228,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.ContidoPropriamente(conjuntoA, conjuntoB);
+                    resultado = Operator.ProperlyContain(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} está propriamente contido no {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} está propriamente contido no {conjuntoB.Name}";
 
                 }
 
@@ -252,15 +252,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.Contido(conjuntoA, conjuntoB);
+                    resultado = Operator.Contain(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} está contido ou igual ao  {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} está contido ou igual ao  {conjuntoB.Name}";
                 }
 
                 else
@@ -275,15 +275,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.ContidoPropriamente(conjuntoA, conjuntoB);
+                    resultado = Operator.ProperlyContain(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} está contido ou igual ao  {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} está contido ou igual ao  {conjuntoB.Name}";
 
                 }
 
@@ -298,12 +298,12 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    Conjunto novoConjunto = Operador.Uniao(conjuntoA, conjuntoB);
+                    Set novoConjunto = Operator.Union(conjuntoA, conjuntoB);
                     txtSaida.Text = novoConjunto.ToString();
 
                     ListaConjuntos.Add(novoConjunto);
@@ -320,12 +320,12 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    Conjunto novoConjunto = Operador.Intersecao(conjuntoA, conjuntoB);
+                    Set novoConjunto = Operator.Intersection(conjuntoA, conjuntoB);
                     txtSaida.Text = novoConjunto.ToString();
 
                     ListaConjuntos.Add(novoConjunto);
@@ -342,12 +342,12 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    Conjunto novoConjunto = Operador.ProdutoCartesiano(conjuntoA, conjuntoB);
+                    Set novoConjunto = Operator.CartesianProduct(conjuntoA, conjuntoB);
                     txtSaida.Text = novoConjunto.ToString();
 
                     ListaConjuntos.Add(novoConjunto);
@@ -366,9 +366,9 @@ namespace algebra_de_conjuntos
 
             if (comboBoxA.SelectedValue != null && GetConjuntoByID(comboBoxA.SelectedValue.ToString()) != null)
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
 
-                Conjunto novoConjunto = Operador.ConjuntoDasPartes(conjuntoA);
+                Set novoConjunto = Operator.SetOfParts(conjuntoA);
                 txtSaida.Text = novoConjunto.ToString();
 
                 ListaConjuntos.Add(novoConjunto);
@@ -387,15 +387,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.Contem(conjuntoA, conjuntoB);
+                    resultado = Operator.Contains(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} contém {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} contém {conjuntoB.Name}";
                 }
                 else
                 {
@@ -408,15 +408,15 @@ namespace algebra_de_conjuntos
         {
             if (IsSelecionado())
             {
-                Conjunto conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
-                Conjunto conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
+                Set conjuntoA = GetConjuntoByID(comboBoxA.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxB.SelectedValue.ToString());
                 bool resultado;
 
                 if (conjuntoA != null && conjuntoB != null)
                 {
-                    resultado = Operador.Contem(conjuntoA, conjuntoB);
+                    resultado = Operator.Contains(conjuntoA, conjuntoB);
                     string resultadoTxt = resultado ? "" : "não";
-                    txtSaida.Text = $"O conjunto {conjuntoA.Nome} {resultadoTxt} contém {conjuntoB.Nome}";
+                    txtSaida.Text = $"O conjunto {conjuntoA.Name} {resultadoTxt} contém {conjuntoB.Name}";
                 }
                 else
                 {
@@ -427,23 +427,23 @@ namespace algebra_de_conjuntos
 
         private void ButtonReverterCartesiano_Click(object sender, RoutedEventArgs e)
         {
-            Tuple<Conjunto, Conjunto> tupla = Operador.ReversivelProdutoCartesiano(ListaConjuntos[ListaConjuntos.Count - 1]);
+            Tuple<Set, Set> tupla = Operator.ReversivelProdutoCartesiano(ListaConjuntos[ListaConjuntos.Count - 1]);
             txtSaida.Text = $"{tupla.Item1.ToString()} \n {tupla.Item2.ToString()}";
             btnReverterCart.Visibility = Visibility.Hidden;
         }
 
         private void ButtonReverterPA_Click(object sender, RoutedEventArgs e)
         {
-            Conjunto c = Operador.ReversivelProdutoDasPartes(ListaConjuntos[ListaConjuntos.Count - 1]);
+            Set c = Operator.ReversivelProdutoDasPartes(ListaConjuntos[ListaConjuntos.Count - 1]);
             txtSaida.Text = $"{c.ToString()}";
             btnReverterPA.Visibility = Visibility.Hidden;
         }
 
         private void BtnLimpar_Click(object sender, RoutedEventArgs e)
         {
-            ListaConjuntos = new List<Conjunto>();
-            ListaElementos = new List<Elemento>();
-            Lista = new ObservableCollection<ConjuntoOrElementDisplayable>();
+            ListaConjuntos = new List<Set>();
+            ListaElementos = new List<Element>();
+            Lista = new ObservableCollection<SetOrElementDisplayable>();
             lstNomes.ItemsSource = Lista;
             comboBoxA.ItemsSource = Lista;
             comboBoxB.ItemsSource = Lista;

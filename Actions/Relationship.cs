@@ -9,14 +9,14 @@ namespace algebra_de_conjuntos.Actions
 {
     class Relationship
     {
-        public List<ElementoValorado> Domain { get; set; }
-        public List<ElementoValorado> Image { get; set; }
+        public List<ElementWithValue> Domain { get; set; }
+        public List<ElementWithValue> Image { get; set; }
 
         public List<PairElement> LessThan()
         {
             bool relation(int indexDomain, int indexImage)
             {
-                return (Domain[indexDomain].Valor < Image[indexImage].Valor) ? true : false;
+                return (Domain[indexDomain].Value < Image[indexImage].Value) ? true : false;
             }
             return Operation(relation);
         }
@@ -25,7 +25,7 @@ namespace algebra_de_conjuntos.Actions
         {
             bool relation(int indexDomain, int indexImage)
             {
-                return (Domain[indexDomain].Valor > Image[indexImage].Valor) ? true : false;
+                return (Domain[indexDomain].Value > Image[indexImage].Value) ? true : false;
             }
             return Operation(relation);
         }
@@ -34,7 +34,7 @@ namespace algebra_de_conjuntos.Actions
         {
             bool relation(int indexDomain, int indexImage)
             {
-                return (Domain[indexDomain].Valor == Image[indexImage].Valor) ? true : false;
+                return (Domain[indexDomain].Value == Image[indexImage].Value) ? true : false;
             }
             return Operation(relation);
         }
@@ -42,7 +42,7 @@ namespace algebra_de_conjuntos.Actions
         {
             bool relation(int indexDomain, int indexImage)
             {
-                return (Domain[indexDomain].Valor == Math.Sqrt(Image[indexImage].Valor)) ? true : false;
+                return (Domain[indexDomain].Value == Math.Sqrt(Image[indexImage].Value)) ? true : false;
             }
             return Operation(relation);
         }
@@ -50,7 +50,7 @@ namespace algebra_de_conjuntos.Actions
         {
             bool relation(int indexDomain, int indexImage)
             {
-                return (Domain[indexDomain].Valor == Math.Pow(Image[indexImage].Valor, 2)) ? true : false;
+                return (Domain[indexDomain].Value == Math.Pow(Image[indexImage].Value, 2)) ? true : false;
             }
             return Operation(relation);
         }

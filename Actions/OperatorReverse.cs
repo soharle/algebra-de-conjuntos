@@ -10,73 +10,73 @@ namespace algebra_de_conjuntos.Actions
 {
     class OperatorReverse
     {
-        public static Conjunto ReversivelProdutoDasPartes(Conjunto a)
+        public static Set ReversivelProdutoDasPartes(Set a)
         {
-            string nome = a.Nome.Substring(a.Nome.IndexOf('('), (a.Nome.IndexOf(')')));
-            nome = Regex.Replace(nome, @"\(|\)", "");
+            string name = a.Name.Substring(a.Name.IndexOf('('), (a.Name.IndexOf(')')));
+            name = Regex.Replace(name, @"\(|\)", "");
 
-            Conjunto novo = new Conjunto
+            Set newSet = new Set
             {
-                Nome = nome
+                Name = name
             };
 
-            string todosElementos = a.ElementosConjuntoToString();
+            string allElements = a.ElementsSetToString();
 
             string pattern = @"\(|\)|{|}|\s";
             string replacement = "";
-            string corpo;
-            corpo = Regex.Replace(todosElementos, pattern, replacement);
+            string body;
+            body = Regex.Replace(allElements, pattern, replacement);
 
-            string[] elementos = corpo.Split(',');
+            string[] elements = body.Split(',');
 
-            for (int i = 0; i < elementos.Length; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
-                if (!elementos[i].Equals(""))
+                if (!elements[i].Equals(""))
                 {
-                    novo.SetElemento(new Elemento
+                    newSet.AddElement(new Element
                     {
-                        Valor = elementos[i]
+                        Value = elements[i]
                     });
                 }
             }
-            return novo;
+            return newSet;
         }
 
-        public static Tuple<Conjunto, Conjunto> ReversivelProdutoCartesiano(Conjunto a)
+        public static Tuple<Set, Set> ReversivelProdutoCartesiano(Set a)
         {
-            string[] nomes = a.Nome.Split('x');
+            string[] names = a.Name.Split('x');
 
-            Conjunto conjuntoA = new Conjunto
+            Set conjuntoA = new Set
             {
-                Nome = nomes[0].Trim()
+                Name = names[0].Trim()
             };
-            Conjunto conjuntoB = new Conjunto
+            Set conjuntoB = new Set
             {
-                Nome = nomes[1].Trim()
+                Name = names[1].Trim()
             };
 
-            for (int i = 0; i < a.ListaElementos.Count; i++)
+            for (int i = 0; i < a.ListElements.Count; i++)
             {
-                string elemento = a.ListaElementos[i].Valor;
+                string element = a.ListElements[i].Value;
 
                 string pattern = @"\(|\)";
                 string replacement = "";
-                string corpo;
-                corpo = Regex.Replace(elemento, pattern, replacement);
+                string body;
+                body = Regex.Replace(element, pattern, replacement);
 
-                string[] elementos = corpo.Split(',');
+                string[] elements = body.Split(',');
 
-                conjuntoA.SetElemento(new Elemento
+                conjuntoA.AddElement(new Element
                 {
-                    Valor = elementos[0].Trim()
+                    Value = elements[0].Trim()
                 });
-                conjuntoB.SetElemento(new Elemento
+                conjuntoB.AddElement(new Element
                 {
-                    Valor = elementos[1].Trim()
+                    Value = elements[1].Trim()
                 });
             }
 
-            return new Tuple<Conjunto, Conjunto>(conjuntoA, conjuntoB);
+            return new Tuple<Set, Set>(conjuntoA, conjuntoB);
         }
     }
 }

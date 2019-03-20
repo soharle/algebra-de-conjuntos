@@ -9,72 +9,72 @@ namespace algebra_de_conjuntos.utils
 {
     class TableauGenerator
     {
-        public char[][] GerarMatriz(int tamanho)
+        public char[][] GenerateTableau(int size)
         {
-            int valorMaximo = (int)Math.Pow(2, tamanho);
-            char[][] matriz = new char[valorMaximo][];
+            int maxValue = (int)Math.Pow(2, size);
+            char[][] tableau = new char[maxValue][];
 
-            for (int i = 0; i < valorMaximo; i++)
+            for (int i = 0; i < maxValue; i++)
             {
-                string binario = ConverteBinario(i, tamanho);
-                matriz[i] = binario.ToCharArray();
+                string binaries = ConvertBinary(i, size);
+                tableau[i] = binaries.ToCharArray();
             }
 
-            return matriz;
+            return tableau;
         }
 
-        private string ConverteBinario(int numero, int tamanho)
+        private string ConvertBinary(int number, int size)
         {
-            List<int> listaRestante = new List<int>();
+            List<int> RemainingList = new List<int>();
 
-            while (numero > 0)
+            while (number > 0)
             {
-                listaRestante.Add(numero % 2);
-                numero = numero / 2;
+                RemainingList.Add(number % 2);
+                number = number / 2;
             }
 
-            string valor = "";
-            for (int i = listaRestante.Count - 1; i >= 0; i--)
+            string value = "";
+            for (int i = RemainingList.Count - 1; i >= 0; i--)
             {
-                valor += listaRestante[i].ToString();
+                value += RemainingList[i].ToString();
             }
 
-            if (valor.Length < tamanho)
+            if (value.Length < size)
             {
-                int diferenca = tamanho - valor.Length;
-                int cont = 0;
-                string valorAux = "";
+                int variation = size - value.Length;
+                int count = 0;
+                string valueAux = "";
 
-                while (cont < diferenca)
+                while (count < variation)
                 {
-                    valorAux += "0";
-                    cont++;
+                    valueAux += "0";
+                    count++;
                 }
 
-                valor = valorAux + valor;
+                value = valueAux + value;
             }
 
-            return valor;
+            return value;
         }
 
-        public Elemento MatrizParaElemento(char[] linha, Conjunto c)
+        public Element TableauToElement(char[] row, Set c)
         {
-            Conjunto conjuntoAux = new Conjunto();
-            for (int i = 0; i < linha.Length; i++)
+            Set setAux = new Set();
+            for (int i = 0; i < row.Length; i++)
             {
 
-                if (linha[i].Equals('1'))
+                if (row[i].Equals('1'))
                 {
-                    conjuntoAux.SetElemento(new Elemento
+                    setAux.AddElement(new Element
                     {
-                        Valor = c.ListaElementos[i].Valor
+                        Value = c.ListElements[i].Value
                     });
                 }
             }
 
-            return new Elemento
+            return new Element
             {
-                Valor = conjuntoAux.ElementosConjuntoToString()
+                Value = setAux.ElementsSetToString()
             };
 
         }

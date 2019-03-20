@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace algebra_de_conjuntos.Models
 {
-    class ElementoValorado
+    class ElementWithValue
     {
         public long Id { get; set; }
-        public string Nome { get; set; }
-        public long Valor { get; set; }
+        public string Name { get; set; }
+        public long Value { get; set; }
 
-        public ElementoValorado(Elemento e)
+        public ElementWithValue(Element e)
         {
             Id = IdGenerator.GenerateId();
-            Nome = e.Nome;
-            Valor = Int64.Parse(e.Valor);
+            Name = e.Name;
+            Value = Int64.Parse(e.Value);
         }
     }
 }

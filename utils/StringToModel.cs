@@ -11,13 +11,13 @@ namespace algebra_de_conjuntos.utils
 {
     class StringToModel
     {
-        public List<Conjunto> Conjuntos { get; set; }
-        public List<Elemento> Elementos { get; set; }
+        public List<Set> Sets { get; set; }
+        public List<Element> Elements { get; set; }
 
         public StringToModel()
         {
-            Conjuntos = new List<Conjunto>();
-            Elementos = new List<Elemento>();
+            Sets = new List<Set>();
+            Elements = new List<Element>();
         }
 
         public void Load(List<string> content)
@@ -26,67 +26,67 @@ namespace algebra_de_conjuntos.utils
             {
                 string pattern = @"\s*";
                 string replacement = "";
-                string newLine;
-                newLine = Regex.Replace(line, pattern, replacement);
-                if (!newLine.Equals(""))
+                string newRow;
+                newRow = Regex.Replace(line, pattern, replacement);
+                if (!newRow.Equals(""))
                 {
-                    if (newLine.Contains("{"))
+                    if (newRow.Contains("{"))
                     {
-                        Conjuntos.Add(LineToConjunto(newLine));
+                        Sets.Add(RowToSet(newRow));
                     }
                     else
                     {
-                        Elementos.Add(LineToElemento(newLine));
+                        Elements.Add(RowToElement(newRow));
                     }
                 }
 
             }
         }
 
-        private Conjunto LineToConjunto(string line)
+        private Set RowToSet(string row)
         {
-            string[] lines;
-            lines = line.Split('=');
+            string[] rows;
+            rows = row.Split('=');
 
-            string nome = lines[0];
+            string name = rows[0];
 
             string pattern = @"{|}";
             string replacement = "";
-            string corpo;
+            string body;
 
-            corpo = Regex.Replace(lines[1], pattern, replacement);
-            string[] elementosDoConjunto = corpo.Split(',');
+            body = Regex.Replace(rows[1], pattern, replacement);
+            string[] elementsOfSet = body.Split(',');
 
-            Conjunto conjunto = new Conjunto
+            Set set = new Set
             {
-                Nome = nome
+                Name = name
             };
 
-            foreach (string e in elementosDoConjunto)
+            foreach (string e in elementsOfSet)
             {
-                Elemento elemento = new Elemento
+                Element element = new Element
                 {
-                    Valor = e
+                    Value = e
                 };
 
-                conjunto.ListaElementos.Add(elemento);
+                set.ListElements.Add(element);
             }
 
-            return conjunto;
+            return set;
 
         }
-        private Elemento LineToElemento(string line)
+        private Element RowToElement(string row)
         {
-            string[] lines;
-            lines = line.Split('=');
+            string[] rows;
+            rows = row.Split('=');
 
-            Elemento elemento = new Elemento
+            Element element = new Element
             {
-                Nome = lines[0],
-                Valor = lines[1]
+                Name = rows[0],
+                Value = rows[1]
             };
 
-            return elemento;
+            return element;
         }
 
     }

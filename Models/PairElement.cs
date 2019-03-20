@@ -8,16 +8,16 @@ namespace algebra_de_conjuntos.Models
 {
     class PairElement
     {
-        public ElementoValorado Domain { get; set; }
-        public ElementoValorado Image { get; set; }
+        public ElementWithValue Domain { get; set; }
+        public ElementWithValue Image { get; set; }
 
-        public PairElement(Elemento domain, Elemento image)
+        public PairElement(Element domain, Element image)
         {
-            Domain = new ElementoValorado(domain);
-            Image = new ElementoValorado(image);
+            Domain = new ElementWithValue(domain);
+            Image = new ElementWithValue(image);
         }
 
-        public PairElement(ElementoValorado domain, ElementoValorado image)
+        public PairElement(ElementWithValue domain, ElementWithValue image)
         {
             Domain = domain;
             Image = image;

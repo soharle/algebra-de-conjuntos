@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace algebra_de_conjuntos.Models
 {
-    class ConjuntoOrElementDisplayable
+    class SetOrElementDisplayable
     {
         public long Id { get; set; }
-        public string Nome { get; set; }
-        public string Valor { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
     }
 }
