@@ -11,13 +11,13 @@ namespace algebra_de_conjuntos.Actions
     {
         public List<PairElement> PairList { get; set; }
         public List<ElementWithValue> Domain { get; set; }
-        public List<ElementWithValue> Image { get; set; }
+        public List<ElementWithValue> Codomain { get; set; }
 
-        public Classification(List<PairElement> pairList, List<ElementWithValue> domain, List<ElementWithValue> image)
+        public Classification(List<PairElement> pairList, List<ElementWithValue> domain, List<ElementWithValue> codomain)
         {
             PairList = pairList;
             Domain = domain;
-            Image = image;
+            Codomain = codomain;
         }
 
         public bool IsFunctional()
@@ -81,13 +81,13 @@ namespace algebra_de_conjuntos.Actions
 
         public bool IsOverjet()
         {
-            for (int i = 0; i < Image.Count; i++)
+            for (int i = 0; i < Codomain.Count; i++)
             {
                 int repeatedCounter = 0;
 
                 for (int j = 0; j < PairList.Count; j++)
                 {
-                    if (Image[i].Value == PairList[j].Image.Value)
+                    if (Codomain[i].Value == PairList[j].Codomain.Value)
                         repeatedCounter++;
 
                     if (repeatedCounter == 0)
