@@ -17,6 +17,7 @@ namespace algebra_de_conjuntos
         public List<Set> ListaConjuntos { get; set; }
         public List<Element> ListaElementos { get; set; }
         private ObservableCollection<SetOrElementDisplayable> Lista { get; set; }
+        private ObservableCollection<Set> SetsForValue { get; set; }
 
         public MainWindow()
         {
@@ -24,9 +25,25 @@ namespace algebra_de_conjuntos
             ListaConjuntos = new List<Set>();
             ListaElementos = new List<Element>();
             Lista = new ObservableCollection<SetOrElementDisplayable>();
+            SetsForValue = new ObservableCollection<Set>();
             lstNomes.ItemsSource = Lista;
             comboBoxA.ItemsSource = Lista;
             comboBoxB.ItemsSource = Lista;
+            comboBoxAR.ItemsSource = SetsForValue;
+            comboBoxBR.ItemsSource = SetsForValue;
+
+            List<string> listForSoR = new List<string>();
+            listForSoR.Add("<");
+            listForSoR.Add(">");
+            listForSoR.Add("=");
+            listForSoR.Add("x²");
+            listForSoR.Add("²√");
+            comboBox1O.ItemsSource = listForSoR;
+            comboBox2O.ItemsSource = listForSoR;
+
+            comboBox1S.ItemsSource = SetsForValue;
+            comboBox2S.ItemsSource = SetsForValue;
+            comboBox3S.ItemsSource = SetsForValue;
 
         }
 
@@ -58,6 +75,26 @@ namespace algebra_de_conjuntos
                         Name = e.Name,
                         Value = e.Value
                     });
+                }
+            }
+
+            foreach (Set s in ListaConjuntos)
+            {
+                int counter = 0;
+                for (int i = 0; i < s.ListElements.Count; i++)
+                {
+                    long value;
+                    bool itsNumber = long.TryParse(s.ListElements[i].Value, out value);
+                    if (itsNumber)
+                    {
+                        counter++;
+                    }
+
+                }
+
+                if (counter == s.ListElements.Count)
+                {
+                    SetsForValue.Add(s);
                 }
             }
         }
@@ -142,7 +179,6 @@ namespace algebra_de_conjuntos
             }
             return null;
         }
-
 
         private void BtnPertence_Click(object sender, RoutedEventArgs e)
         {
@@ -432,18 +468,51 @@ namespace algebra_de_conjuntos
             ListaConjuntos = new List<Set>();
             ListaElementos = new List<Element>();
             Lista = new ObservableCollection<SetOrElementDisplayable>();
+            SetsForValue = new ObservableCollection<Set>();
+
             lstNomes.ItemsSource = Lista;
             comboBoxA.ItemsSource = Lista;
             comboBoxB.ItemsSource = Lista;
+            comboBoxAR.ItemsSource = SetsForValue;
+            comboBoxBR.ItemsSource = SetsForValue;
+            comboBox1S.ItemsSource = SetsForValue;
+            comboBox2S.ItemsSource = SetsForValue;
+            comboBox3S.ItemsSource = SetsForValue;
             btnReverterPA.Visibility = Visibility.Hidden;
             btnReverterCart.Visibility = Visibility.Hidden;
             txtSaida.Text = "";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnAlgebra_Click(object sender, RoutedEventArgs e)
         {
             wrapAlgebra.Visibility = Visibility.Visible;
             wrapBtnAlgebra.Visibility = Visibility.Visible;
+            wrapRelacoes.Visibility = Visibility.Hidden;
+            wrapBtnRelacoes.Visibility = Visibility.Hidden;
+            wrapSoR.Visibility = Visibility.Hidden;
+            wrapBtnSoR.Visibility = Visibility.Hidden;
+
+        }
+
+        private void BtnRelacoes_Click(object sender, RoutedEventArgs e)
+        {
+            wrapAlgebra.Visibility = Visibility.Hidden;
+            wrapBtnAlgebra.Visibility = Visibility.Hidden;
+            wrapRelacoes.Visibility = Visibility.Visible;
+            wrapBtnRelacoes.Visibility = Visibility.Visible;
+            wrapSoR.Visibility = Visibility.Hidden;
+            wrapBtnSoR.Visibility = Visibility.Hidden;
+
+        }
+
+        private void BtnSoR_Click(object sender, RoutedEventArgs e)
+        {
+            wrapAlgebra.Visibility = Visibility.Hidden;
+            wrapBtnAlgebra.Visibility = Visibility.Hidden;
+            wrapRelacoes.Visibility = Visibility.Hidden;
+            wrapBtnRelacoes.Visibility = Visibility.Hidden;
+            wrapSoR.Visibility = Visibility.Visible;
+            wrapBtnSoR.Visibility = Visibility.Visible;
         }
     }
 }

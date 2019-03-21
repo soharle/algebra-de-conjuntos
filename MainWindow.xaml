@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="Algebra de Conjuntos" Height="768" Width="1024">
-           
+
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200*"/>
@@ -29,82 +29,41 @@
         <!-- sidebar -->
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="0">
             <ListBox x:Name="lstNomes">
-                <ListBox.ItemTemplate >
+                <ListBox.ItemTemplate>
                     <DataTemplate >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Nome}"/>
+                            <TextBlock Text="{Binding Name}"/>
                             <TextBlock Text=" = "/>
-                            <TextBlock Text="{Binding Valor}"/>
+                            <TextBlock Text="{Binding Value}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-
         <!-- main -->
+        
         <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
             <Label Content="Selecione os conjuntos/elementos que deseja fazer a operação" Height="27" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20px"/>
 
+            <!--Algebra-->
             <WrapPanel x:Name="wrapAlgebra" Margin="80" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
                 <ComboBox x:Name="comboBoxA" Width="120" Height="40px" VerticalAlignment="Top"
                   FontSize="20px"
                   Margin="30"
                   ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
+                  DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   />
                 <ComboBox x:Name="comboBoxB" Width="120" Height="40px" VerticalAlignment="Top"
                   FontSize="20px"
                   Margin="30"
                   ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
+                  DisplayMemberPath="Name"
                   SelectedValuePath="Id"
                   />
             </WrapPanel>
-            
-            <WrapPanel Margin="20, 80" Visibility="Hidden">
-                <ComboBox x:Name="comboBox1S" Width="80" Height="40px" VerticalAlignment="Top"
-                  FontSize="20px"
-                  Margin="10"
-                  ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Id"
-                  />
-                <ComboBox x:Name="comboBox1O" Width="80" Height="40px" VerticalAlignment="Top" 
-                  FontSize="20px"
-                  HorizontalAlignment="Right"    
-                  Margin="10"
-                  ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Id"/>
 
-                <ComboBox x:Name="comboBox2S" Width="80" Height="40px" VerticalAlignment="Top" 
-                  FontSize="20px"
-                  HorizontalAlignment="Center"    
-                  Margin="10"
-                  ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Id"/>
-
-                <ComboBox x:Name="comboBox2O" Width="80" Height="40px" VerticalAlignment="Top" 
-                  FontSize="20px"
-                  HorizontalAlignment="Center"    
-                  Margin="10"
-                  ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Id"/>
-
-                <ComboBox x:Name="comboBox3S" Width="80" Height="40px" VerticalAlignment="Top" 
-                  FontSize="20px"
-                  HorizontalAlignment="Center"    
-                  Margin="10"
-                  ItemsSource="{Binding ObservableCollection}"
-                  DisplayMemberPath="Nome"
-                  SelectedValuePath="Id"/>
-            </WrapPanel>
-            
-
-            <WrapPanel x:Name="wrapBtnAlgebra"  Height="115" VerticalAlignment="Center" Margin="135,0" Visibility="Hidden">
+            <WrapPanel x:Name="wrapBtnAlgebra"  Height="115" VerticalAlignment="Center" Margin="135,0" HorizontalAlignment="Center" Visibility="Hidden">
                 <Button x:Name="btnPertence" Content="∈" FontSize="20px" Width="43" Height="35" Click="BtnPertence_Click" />
                 <Button x:Name="btnNaoPertence" Content="∉" FontSize="20px" Width="43" Height="35" Click="BtnNaoPertence_Click" />
                 <Button x:Name="btnContidoPropriamente" Content="⊂" FontSize="20px" Width="43" Height="35" Click="BtnContidoPropriamente_Click" />
@@ -118,8 +77,26 @@
                 <Button x:Name="btnProdutoCartesiano" Content="X" FontSize="20px" Width="43" Height="35" Click="BtnProdutoCartesiano_Click" />
                 <Button x:Name="btnConjuntoDasPartes" Content="P(A)" FontSize="20px" Width="43" Height="35" Click="BtnConjuntoDasPartes_Click" />
             </WrapPanel>
+            
+            <!--Relacoes-->
+            <WrapPanel x:Name="wrapRelacoes" Margin="80" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
+                <ComboBox x:Name="comboBoxAR" Width="120" Height="40px" VerticalAlignment="Top"
+                  FontSize="20px"
+                  Margin="30"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  />
+                <ComboBox x:Name="comboBoxBR" Width="120" Height="40px" VerticalAlignment="Top"
+                  FontSize="20px"
+                  Margin="30"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  />
+            </WrapPanel>
 
-            <WrapPanel Height="115" VerticalAlignment="Center" Margin="135,0" Visibility="Hidden">
+            <WrapPanel x:Name="wrapBtnRelacoes" Height="115" VerticalAlignment="Center" Margin="135,0" Visibility="Hidden" HorizontalAlignment="Center">
                 <Button x:Name="btnMenorQue" Content="&lt;" FontSize="20px" Width="43" Height="35"  />
                 <Button x:Name="btnMaiorQue" Content="&gt;" FontSize="20px" Width="43" Height="35"  />
                 <Button x:Name="btnIgual" Content="=" FontSize="20px" Width="43" Height="35"  />
@@ -127,10 +104,55 @@
                 <Button x:Name="btnRaizQuadrada" Content="²√" FontSize="20px" Width="43" Height="35" />
             </WrapPanel>
 
+            <!--SoR-->
+            
+            <WrapPanel x:Name="wrapSoR" Margin="20, 80" Visibility="Hidden">
+                <ComboBox x:Name="comboBox1S" Width="80" Height="40px" VerticalAlignment="Top"
+                  FontSize="20px"
+                  Margin="10"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"
+                  />
+                <ComboBox x:Name="comboBox1O" Width="80" Height="40px" VerticalAlignment="Top" 
+                  FontSize="20px"
+                  HorizontalAlignment="Right"    
+                  Margin="10"
+                  ItemsSource="{Binding List}"
+                 />
+
+                <ComboBox x:Name="comboBox2S" Width="80" Height="40px" VerticalAlignment="Top" 
+                  FontSize="20px"
+                  HorizontalAlignment="Center"    
+                  Margin="10"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"/>
+
+                <ComboBox x:Name="comboBox2O" Width="80" Height="40px" VerticalAlignment="Top" 
+                  FontSize="20px"
+                  HorizontalAlignment="Center"    
+                  Margin="10"
+                  ItemsSource="{Binding List}"
+                  />
+
+                <ComboBox x:Name="comboBox3S" Width="80" Height="40px" VerticalAlignment="Top" 
+                  FontSize="20px"
+                  HorizontalAlignment="Center"    
+                  Margin="10"
+                  ItemsSource="{Binding ObservableCollection}"
+                  DisplayMemberPath="Name"
+                  SelectedValuePath="Id"/>
+            </WrapPanel>
+
+            <WrapPanel x:Name="wrapBtnSoR" Height="115" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" >
+                <Button x:Name="btnSoR" Content="Processar resultado" FontSize="20px"  Height="40"  />
+            </WrapPanel>
+
             <WrapPanel HorizontalAlignment="Center" Height="115" VerticalAlignment="Bottom" Width="215" Margin="150,0,150,20">
                 <TextBlock x:Name="txtSaida" TextWrapping="Wrap" TextAlignment="Center" Text="" Width="215" Height="115"/>
             </WrapPanel>
-            
+
             <Button x:Name="btnReverterCart" Visibility="Hidden" Content="Reverter" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Center" Width="75" Click="ButtonReverterCartesiano_Click"/>
             <Button x:Name="btnReverterPA" Visibility="Hidden" Content="Reverter" HorizontalAlignment="Center" Margin="0, 150, 0, 0" VerticalAlignment="Center" Width="75" Click="ButtonReverterPA_Click"/>
 
@@ -140,10 +162,10 @@
             <Frame Background="Black"/>
             <WrapPanel ItemHeight="80" VerticalAlignment="Center" ItemWidth="150" HorizontalAlignment="Right" >
                 <Button Content="Carregar Arquivo" Margin="20" Click="BtnOpenFile_Click" />
-                <Button Content="Limpar" Margin="20" />
-                <Button Content="Algebra" Margin="20" Click="Button_Click" />
-                <Button Content="Relacoes" Margin="20" />
-                <Button Content="SoR" Margin="20"  />
+                <Button Content="Limpar" Margin="20" Click="BtnLimpar_Click" />
+                <Button Content="Algebra" Margin="20" Click="BtnAlgebra_Click" />
+                <Button Content="Relacoes" Margin="20" Click="BtnRelacoes_Click" />
+                <Button Content="SoR" Margin="20"  Click="BtnSoR_Click"/>
             </WrapPanel>
 
         </Grid>

@@ -18,5 +18,12 @@ namespace algebra_de_conjuntos.Models
             Name = e.Name;
             Value = Int64.Parse(e.Value);
         }
+
+        public ElementWithValue(string nome, long value)
+        {
+            Id = IdGenerator.GenerateId();
+            Name = nome;
+            Value = value;
+        }
     }
 }
