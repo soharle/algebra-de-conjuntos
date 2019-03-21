@@ -95,7 +95,6 @@ namespace algebra_de_conjuntos.Actions
                         if(repeatedCounter == 0)
                             composed.Add(newPair);
                     }
-
                 }
             }
 

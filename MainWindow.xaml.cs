@@ -1,4 +1,5 @@
-﻿using algebra_de_conjuntos.Models;
+﻿using algebra_de_conjuntos.Actions;
+using algebra_de_conjuntos.Models;
 using algebra_de_conjuntos.utils;
 using Microsoft.Win32;
 using System;
@@ -6,23 +7,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace algebra_de_conjuntos
 {
-    /// <summary>
-    /// Interação lógica para MainWindow.xam
-    /// </summary>
     public partial class MainWindow : Window
     {
 
@@ -427,14 +415,14 @@ namespace algebra_de_conjuntos
 
         private void ButtonReverterCartesiano_Click(object sender, RoutedEventArgs e)
         {
-            Tuple<Set, Set> tupla = Operator.ReversivelProdutoCartesiano(ListaConjuntos[ListaConjuntos.Count - 1]);
+            Tuple<Set, Set> tupla = OperatorReverse.ReversivelProdutoCartesiano(ListaConjuntos[ListaConjuntos.Count - 1]);
             txtSaida.Text = $"{tupla.Item1.ToString()} \n {tupla.Item2.ToString()}";
             btnReverterCart.Visibility = Visibility.Hidden;
         }
 
         private void ButtonReverterPA_Click(object sender, RoutedEventArgs e)
         {
-            Set c = Operator.ReversivelProdutoDasPartes(ListaConjuntos[ListaConjuntos.Count - 1]);
+            Set c = OperatorReverse.ReversivelProdutoDasPartes(ListaConjuntos[ListaConjuntos.Count - 1]);
             txtSaida.Text = $"{c.ToString()}";
             btnReverterPA.Visibility = Visibility.Hidden;
         }
@@ -452,7 +440,11 @@ namespace algebra_de_conjuntos
             txtSaida.Text = "";
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            wrapAlgebra.Visibility = Visibility.Visible;
+            wrapBtnAlgebra.Visibility = Visibility.Visible;
+        }
     }
 }
 
