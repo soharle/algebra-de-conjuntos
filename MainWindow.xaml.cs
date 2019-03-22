@@ -514,6 +514,77 @@ namespace algebra_de_conjuntos
             wrapSoR.Visibility = Visibility.Visible;
             wrapBtnSoR.Visibility = Visibility.Visible;
         }
+
+        private Relationship ComboBoxRelation()
+        {
+            Set conjuntoA = GetConjuntoByID(comboBoxAR.SelectedValue.ToString());
+            Set conjuntoB = GetConjuntoByID(comboBoxBR.SelectedValue.ToString());
+
+            List<ElementWithValue> elementsA = new List<ElementWithValue>();
+
+            foreach (Element ele in conjuntoA.ListElements)
+            {
+                elementsA.Add(new ElementWithValue(ele));
+            }
+
+            List<ElementWithValue> elementsB = new List<ElementWithValue>();
+
+            foreach (Element ele in conjuntoB.ListElements)
+            {
+                elementsB.Add(new ElementWithValue(ele));
+            }
+
+            Relationship relation = new Relationship
+            {
+                Domain = elementsA,
+                Codomain = elementsB
+            };
+
+            relation.Name = $"{conjuntoA.Name} X {conjuntoB.Name}";
+
+            return relation;
+
+        }
+
+        private void BtnMenorQue_Click(object sender, RoutedEventArgs e)
+        {
+            Relationship relation = ComboBoxRelation();
+
+            SetPair setPair = relation.LessThan();
+            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        }
+
+        private void BtnMaiorQue_Click(object sender, RoutedEventArgs e)
+        {
+            Relationship relation = ComboBoxRelation();
+
+            SetPair setPair = relation.GreaterThan();
+            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        }
+
+        private void BtnIgual_Click(object sender, RoutedEventArgs e)
+        {
+            Relationship relation = ComboBoxRelation();
+
+            SetPair setPair = relation.EqualsValues();
+            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        }
+
+        private void BtnRaizQuadrada_Click(object sender, RoutedEventArgs e)
+        {
+            Relationship relation = ComboBoxRelation();
+
+            SetPair setPair = relation.SquareRoot();
+            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        }
+
+        private void BtnQuadrado_Click(object sender, RoutedEventArgs e)
+        {
+            Relationship relation = ComboBoxRelation();
+
+            SetPair setPair = relation.Square();
+            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        }
     }
 }
 

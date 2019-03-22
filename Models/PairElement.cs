@@ -27,5 +27,10 @@ namespace algebra_de_conjuntos.Models
         {
             return (pairElement.Domain.Value == Domain.Value && pairElement.Codomain.Value == Codomain.Value) ? true : false;
         }
+
+        public string ToString()
+        {
+            return $"({Domain.Value}, {Codomain.Value})";
+        }
     }
 }

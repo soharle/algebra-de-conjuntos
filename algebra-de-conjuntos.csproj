@@ -67,6 +67,7 @@
     <Compile Include="Models\SetOrElementDisplayable.cs" />
     <Compile Include="Models\ElementWithValue.cs" />
     <Compile Include="Models\PairElement.cs" />
+    <Compile Include="Models\SetValue.cs" />
     <Compile Include="utils\IdGenerator.cs" />
     <Compile Include="utils\StringToModel.cs" />
     <Compile Include="Models\Set.cs" />

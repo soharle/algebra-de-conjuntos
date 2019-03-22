@@ -9,10 +9,11 @@ namespace algebra_de_conjuntos.Actions
 {
     class Relationship
     {
+        public string Name { get; set; }
         public List<ElementWithValue> Domain { get; set; }
         public List<ElementWithValue> Codomain { get; set; }
 
-        public List<PairElement> LessThan()
+        public SetPair LessThan()
         {
             bool relation(int indexDomain, int indexCodomain)
             {
@@ -21,7 +22,7 @@ namespace algebra_de_conjuntos.Actions
             return Operation(relation);
         }
 
-        private List<PairElement> MoreThan()
+        public SetPair GreaterThan()
         {
             bool relation(int indexDomain, int indexCodomain)
             {
@@ -30,7 +31,7 @@ namespace algebra_de_conjuntos.Actions
             return Operation(relation);
         }
 
-        public List<PairElement> EqualsValues()
+        public SetPair EqualsValues()
         {
             bool relation(int indexDomain, int indexCodomain)
             {
@@ -38,15 +39,7 @@ namespace algebra_de_conjuntos.Actions
             }
             return Operation(relation);
         }
-        public List<PairElement> Square()
-        {
-            bool relation(int indexDomain, int indexCodomain)
-            {
-                return (Domain[indexDomain].Value == Math.Sqrt(Codomain[indexCodomain].Value)) ? true : false;
-            }
-            return Operation(relation);
-        }
-        public List<PairElement> SquareRoot()
+        public SetPair Square()
         {
             bool relation(int indexDomain, int indexCodomain)
             {
@@ -54,46 +47,55 @@ namespace algebra_de_conjuntos.Actions
             }
             return Operation(relation);
         }
-
-        private List<PairElement> Operation(Func<int, int, bool> relation)
+        public SetPair SquareRoot()
         {
-            List<PairElement> pairList = new List<PairElement>();
+            bool relation(int indexDomain, int indexCodomain)
+            {
+                return (Domain[indexDomain].Value == Math.Sqrt(Codomain[indexCodomain].Value)) ? true : false;
+            }
+            return Operation(relation);
+        }
+
+        private SetPair Operation(Func<int, int, bool> relation)
+        {
+            SetPair set = new SetPair();
+            
 
             for (int i = 0; i < Domain.Count; i++)
             {
-                for (int j = 0; j < Codomain.Count; i++)
+                for (int j = 0; j < Codomain.Count; j++)
                 {
                     if (relation(i, j))
                     {
-                        pairList.Add(new PairElement(Domain[i], Codomain[j]));
+                        set.ListPair.Add(new PairElement(Domain[i], Codomain[j]));
                     }
                 }
             }
 
-            return pairList;
+            return set;
         }
 
-        private List<PairElement> ComposedRelationship(List<PairElement> ab, List<PairElement> bc)
+        private SetPair ComposedRelationship(SetPair ab, SetPair bc)
         {
-            List<PairElement> composed = new List<PairElement>();
+            SetPair composed = new SetPair();
 
-            for (int i = 0; i < ab.Count; i++)
+            for (int i = 0; i < ab.ListPair.Count; i++)
             {
-                for (int j = 0; j < bc.Count; j++)
+                for (int j = 0; j < bc.ListPair.Count; j++)
                 {
-                    if(ab[i].Codomain.Value == bc[j].Domain.Value)
+                    if(ab.ListPair[i].Codomain.Value == bc.ListPair[j].Domain.Value)
                     {
-                        PairElement newPair = new PairElement(ab[i].Domain, bc[j].Codomain);
+                        PairElement newPair = new PairElement(ab.ListPair[i].Domain, bc.ListPair[j].Codomain);
 
                         int repeatedCounter = 0;
-                        for (int k = 0; k < composed.Count && repeatedCounter == 0; k++)
+                        for (int k = 0; k < composed.ListPair.Count && repeatedCounter == 0; k++)
                         {
-                            if (composed[k].Equal(newPair))
+                            if (composed.ListPair[k].Equal(newPair))
                                 repeatedCounter++;
                         }
 
                         if(repeatedCounter == 0)
-                            composed.Add(newPair);
+                            composed.ListPair.Add(newPair);
                     }
                 }
             }

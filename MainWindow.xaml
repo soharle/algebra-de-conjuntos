@@ -97,11 +97,11 @@
             </WrapPanel>
 
             <WrapPanel x:Name="wrapBtnRelacoes" Height="115" VerticalAlignment="Center" Margin="135,0" Visibility="Hidden" HorizontalAlignment="Center">
-                <Button x:Name="btnMenorQue" Content="&lt;" FontSize="20px" Width="43" Height="35"  />
-                <Button x:Name="btnMaiorQue" Content="&gt;" FontSize="20px" Width="43" Height="35"  />
-                <Button x:Name="btnIgual" Content="=" FontSize="20px" Width="43" Height="35"  />
-                <Button x:Name="btnQuadrado" Content="x²" FontSize="20px" Width="43" Height="35"  />
-                <Button x:Name="btnRaizQuadrada" Content="²√" FontSize="20px" Width="43" Height="35" />
+                <Button x:Name="btnMenorQue" Content="&lt;" FontSize="20px" Width="43" Height="35" Click="BtnMenorQue_Click" />
+                <Button x:Name="btnMaiorQue" Content="&gt;" FontSize="20px" Width="43" Height="35" Click="BtnMaiorQue_Click"  />
+                <Button x:Name="btnIgual" Content="=" FontSize="20px" Width="43" Height="35" Click="BtnIgual_Click" />
+                <Button x:Name="btnQuadrado" Content="x²" FontSize="20px" Width="43" Height="35" Click="BtnRaizQuadrada_Click" />
+                <Button x:Name="btnRaizQuadrada" Content="²√" FontSize="20px" Width="43" Height="35" Click="BtnQuadrado_Click" />
             </WrapPanel>
 
             <!--SoR-->
@@ -160,7 +160,7 @@
         <!-- footer -->
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
             <Frame Background="Black"/>
-            <WrapPanel ItemHeight="80" VerticalAlignment="Center" ItemWidth="150" HorizontalAlignment="Right" >
+            <WrapPanel ItemHeight="80" VerticalAlignment="Center" ItemWidth="150" HorizontalAlignment="Center" >
                 <Button Content="Carregar Arquivo" Margin="20" Click="BtnOpenFile_Click" />
                 <Button Content="Limpar" Margin="20" Click="BtnLimpar_Click" />
                 <Button Content="Algebra" Margin="20" Click="BtnAlgebra_Click" />
