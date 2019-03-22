@@ -75,7 +75,7 @@ namespace algebra_de_conjuntos.Actions
             return set;
         }
 
-        private SetPair ComposedRelationship(SetPair ab, SetPair bc)
+        public SetPair ComposedRelationship(SetPair ab, SetPair bc)
         {
             SetPair composed = new SetPair();
 

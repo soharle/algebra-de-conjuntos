@@ -58,15 +58,6 @@ namespace algebra_de_conjuntos.Models
             return true;
         }
 
-        public Element GetElement(string value)
-        {
-            for (int i = 0; i < ListElements.Count; i++)
-            {
-                return ListElements[i].Value.Equals(value) ? ListElements[i] : null;
-            }
-            return null;
-        }
-
         public Element GetElement(Element element)
         {
             for (int i = 0; i < ListElements.Count; i++)

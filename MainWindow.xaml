@@ -146,7 +146,7 @@
             </WrapPanel>
 
             <WrapPanel x:Name="wrapBtnSoR" Height="115" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" >
-                <Button x:Name="btnSoR" Content="Processar resultado" FontSize="20px"  Height="40"  />
+                <Button x:Name="btnSoR" Content="Processar resultado" FontSize="20px"  Height="40" Click="BtnProcessarSoR_Click" />
             </WrapPanel>
 
             <WrapPanel HorizontalAlignment="Center" Height="115" VerticalAlignment="Bottom" Width="215" Margin="150,0,150,20">

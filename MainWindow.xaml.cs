@@ -115,6 +115,40 @@ namespace algebra_de_conjuntos
             }
         }
 
+        private bool IsSelecionadoRelation()
+        {
+            btnReverterPA.Visibility = Visibility.Hidden;
+            btnReverterCart.Visibility = Visibility.Hidden;
+
+            if (comboBoxAR.SelectedValue != null && comboBoxBR.SelectedValue != null)
+            {
+                return true;
+            }
+            else
+            {
+                txtSaida.Text = $"É necessário selecionar ambos ComboBoxes antes de realizar uma operação";
+                return false;
+            }
+        }
+
+        private bool IsSelecionadoSOR()
+        {
+            btnReverterPA.Visibility = Visibility.Hidden;
+            btnReverterCart.Visibility = Visibility.Hidden;
+
+            if (comboBox1S.SelectedValue != null && comboBox2S.SelectedValue != null &&
+                comboBox3S.SelectedValue != null && comboBox1O.SelectedValue != null &&
+                comboBox2O.SelectedValue != null)
+            {
+                return true;
+            }
+            else
+            {
+                txtSaida.Text = $"É necessário selecionar todos os ComboBoxes antes de realizar a operação";
+                return false;
+            }
+        }
+
         private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
         {
 
@@ -517,73 +551,180 @@ namespace algebra_de_conjuntos
 
         private Relationship ComboBoxRelation()
         {
-            Set conjuntoA = GetConjuntoByID(comboBoxAR.SelectedValue.ToString());
-            Set conjuntoB = GetConjuntoByID(comboBoxBR.SelectedValue.ToString());
-
-            List<ElementWithValue> elementsA = new List<ElementWithValue>();
-
-            foreach (Element ele in conjuntoA.ListElements)
+            if (IsSelecionadoRelation())
             {
-                elementsA.Add(new ElementWithValue(ele));
+                Set conjuntoA = GetConjuntoByID(comboBoxAR.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBoxBR.SelectedValue.ToString());
+
+                List<ElementWithValue> elementsA = new List<ElementWithValue>();
+
+                foreach (Element ele in conjuntoA.ListElements)
+                {
+                    elementsA.Add(new ElementWithValue(ele));
+                }
+
+                List<ElementWithValue> elementsB = new List<ElementWithValue>();
+
+                foreach (Element ele in conjuntoB.ListElements)
+                {
+                    elementsB.Add(new ElementWithValue(ele));
+                }
+
+                Relationship relation = new Relationship
+                {
+                    Domain = elementsA,
+                    Codomain = elementsB
+                };
+
+                relation.Name = $"{conjuntoA.Name} X {conjuntoB.Name}";
+
+                return relation;
             }
 
-            List<ElementWithValue> elementsB = new List<ElementWithValue>();
-
-            foreach (Element ele in conjuntoB.ListElements)
-            {
-                elementsB.Add(new ElementWithValue(ele));
-            }
-
-            Relationship relation = new Relationship
-            {
-                Domain = elementsA,
-                Codomain = elementsB
-            };
-
-            relation.Name = $"{conjuntoA.Name} X {conjuntoB.Name}";
-
-            return relation;
-
+            return null;
         }
 
         private void BtnMenorQue_Click(object sender, RoutedEventArgs e)
         {
             Relationship relation = ComboBoxRelation();
 
-            SetPair setPair = relation.LessThan();
-            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            if (relation != null)
+            {
+                SetPair setPair = relation.LessThan();
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            }
         }
 
         private void BtnMaiorQue_Click(object sender, RoutedEventArgs e)
         {
             Relationship relation = ComboBoxRelation();
-
-            SetPair setPair = relation.GreaterThan();
-            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            if (relation != null)
+            {
+                SetPair setPair = relation.GreaterThan();
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            }
         }
 
         private void BtnIgual_Click(object sender, RoutedEventArgs e)
         {
             Relationship relation = ComboBoxRelation();
-
-            SetPair setPair = relation.EqualsValues();
-            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            if (relation != null)
+            {
+                SetPair setPair = relation.EqualsValues();
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            }
         }
 
         private void BtnRaizQuadrada_Click(object sender, RoutedEventArgs e)
         {
             Relationship relation = ComboBoxRelation();
-
-            SetPair setPair = relation.SquareRoot();
-            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            if (relation != null)
+            {
+                SetPair setPair = relation.SquareRoot();
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            }
         }
 
         private void BtnQuadrado_Click(object sender, RoutedEventArgs e)
         {
             Relationship relation = ComboBoxRelation();
+            if (relation != null)
+            {
+                SetPair setPair = relation.Square();
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+            }
+        }
 
-            SetPair setPair = relation.Square();
-            txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+        private void BtnProcessarSoR_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsSelecionadoSOR())
+            {
+                Set conjuntoA = GetConjuntoByID(comboBox1S.SelectedValue.ToString());
+                Set conjuntoB = GetConjuntoByID(comboBox2S.SelectedValue.ToString());
+                Set conjuntoC = GetConjuntoByID(comboBox3S.SelectedValue.ToString());
+
+
+                List<ElementWithValue> elementsA = new List<ElementWithValue>();
+
+                foreach (Element ele in conjuntoA.ListElements)
+                {
+                    elementsA.Add(new ElementWithValue(ele));
+                }
+
+                List<ElementWithValue> elementsB = new List<ElementWithValue>();
+
+                foreach (Element ele in conjuntoB.ListElements)
+                {
+                    elementsB.Add(new ElementWithValue(ele));
+                }
+
+                List<ElementWithValue> elementsC = new List<ElementWithValue>();
+
+                foreach (Element ele in conjuntoC.ListElements)
+                {
+                    elementsC.Add(new ElementWithValue(ele));
+                }
+
+                Relationship relationAB = new Relationship
+                {
+                    Domain = elementsA,
+                    Codomain = elementsB
+                };
+
+                SetPair ab = new SetPair();
+                string firstOperation = comboBox1O.SelectedValue.ToString();
+
+                switch (firstOperation)
+                {
+                    case "<":
+                        ab = relationAB.LessThan();
+                        break;
+                    case ">":
+                        ab = relationAB.GreaterThan();
+                        break;
+                    case "=":
+                        ab = relationAB.EqualsValues();
+                        break;
+                    case "x²":
+                        ab = relationAB.EqualsValues();
+                        break;
+                    case "²√":
+                        ab = relationAB.EqualsValues();
+                        break;
+                }
+
+                Relationship relationBC = new Relationship
+                {
+                    Domain = elementsB,
+                    Codomain = elementsC
+                };
+
+                SetPair bc = new SetPair();
+                string secondOperation = comboBox2O.SelectedValue.ToString();
+
+                switch (secondOperation)
+                {
+                    case "<":
+                        bc = relationBC.LessThan();
+                        break;
+                    case ">":
+                        bc = relationBC.GreaterThan();
+                        break;
+                    case "=":
+                        bc = relationBC.EqualsValues();
+                        break;
+                    case "x²":
+                        bc = relationBC.EqualsValues();
+                        break;
+                    case "²√":
+                        bc = relationBC.EqualsValues();
+                        break;
+                }
+
+                relationAB.Name = $"{conjuntoA.Name} X {conjuntoB.Name} X {conjuntoC.Name}";
+                SetPair result = relationAB.ComposedRelationship(ab, bc);
+                txtSaida.Text = $"{relationAB.Name} = {result.ListPairToString()}";
+            }
         }
     }
 }
