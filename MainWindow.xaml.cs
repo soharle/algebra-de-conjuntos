@@ -591,7 +591,8 @@ namespace algebra_de_conjuntos
             if (relation != null)
             {
                 SetPair setPair = relation.LessThan();
-                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()} \n" +
+                    $"{relation.AllClassifications()}";
             }
         }
 
@@ -601,7 +602,8 @@ namespace algebra_de_conjuntos
             if (relation != null)
             {
                 SetPair setPair = relation.GreaterThan();
-                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()} \n" +
+                    $"{relation.AllClassifications()}";
             }
         }
 
@@ -611,7 +613,8 @@ namespace algebra_de_conjuntos
             if (relation != null)
             {
                 SetPair setPair = relation.EqualsValues();
-                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()} \n" +
+                    $"{relation.AllClassifications()}";
             }
         }
 
@@ -621,7 +624,8 @@ namespace algebra_de_conjuntos
             if (relation != null)
             {
                 SetPair setPair = relation.SquareRoot();
-                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()} \n" +
+                    $"{relation.AllClassifications()}";
             }
         }
 
@@ -631,7 +635,8 @@ namespace algebra_de_conjuntos
             if (relation != null)
             {
                 SetPair setPair = relation.Square();
-                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()}";
+                txtSaida.Text = $"{relation.Name} = {setPair.ListPairToString()} \n" +
+                    $"{relation.AllClassifications()}";
             }
         }
 
@@ -723,7 +728,10 @@ namespace algebra_de_conjuntos
 
                 relationAB.Name = $"{conjuntoA.Name} X {conjuntoB.Name} X {conjuntoC.Name}";
                 SetPair result = relationAB.ComposedRelationship(ab, bc);
-                txtSaida.Text = $"{relationAB.Name} = {result.ListPairToString()}";
+
+                Classification classification = new Classification(result, elementsA, elementsC);
+                txtSaida.Text = $"{relationAB.Name} = {result.ListPairToString()} \n" +
+                    $"{classification.AllClassifications()}";
             }
         }
     }

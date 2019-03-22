@@ -1,9 +1,5 @@
 ﻿using algebra_de_conjuntos.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace algebra_de_conjuntos.Actions
 {
@@ -13,9 +9,9 @@ namespace algebra_de_conjuntos.Actions
         public List<ElementWithValue> Domain { get; set; }
         public List<ElementWithValue> Codomain { get; set; }
 
-        public Classification(List<PairElement> pairList, List<ElementWithValue> domain, List<ElementWithValue> codomain)
+        public Classification(SetPair setValue, List<ElementWithValue> domain, List<ElementWithValue> codomain)
         {
-            PairList = pairList;
+            PairList = setValue.ListPair;
             Domain = domain;
             Codomain = codomain;
         }
@@ -33,7 +29,7 @@ namespace algebra_de_conjuntos.Actions
                 }
 
 
-                if (repeatedCounter > 1)
+                if (repeatedCounter > 1 || PairList.Count == 0)
                     return false;
             }
 
@@ -42,18 +38,18 @@ namespace algebra_de_conjuntos.Actions
 
         public bool IsInjector()
         {
-            for (int i = 0; i < Domain.Count; i++)
+            for (int i = 0; i < Codomain.Count; i++)
             {
                 int repeatedCounter = 0;
 
                 for (int j = 0; j < PairList.Count; j++)
                 {
-                    if (Domain[i].Value == PairList[j].Domain.Value)
+                    if (Codomain[i].Value == PairList[j].Codomain.Value)
                         repeatedCounter++;
                 }
 
 
-                if (repeatedCounter > 1)
+                if (repeatedCounter > 1 || PairList.Count == 0)
                     return false;
             }
 
@@ -71,9 +67,9 @@ namespace algebra_de_conjuntos.Actions
                     if (Domain[i].Value == PairList[j].Domain.Value)
                         repeatedCounter++;
 
-                    if (repeatedCounter == 0)
-                        return false;
                 }
+                if (repeatedCounter == 0 || PairList.Count == 0)
+                    return false;
             }
 
             return true;
@@ -90,9 +86,10 @@ namespace algebra_de_conjuntos.Actions
                     if (Codomain[i].Value == PairList[j].Codomain.Value)
                         repeatedCounter++;
 
-                    if (repeatedCounter == 0)
-                        return false;
                 }
+                if (repeatedCounter == 0 || PairList.Count == 0)
+                    return false;
+
             }
 
             return true;
@@ -111,6 +108,43 @@ namespace algebra_de_conjuntos.Actions
         public bool IsIsomorphism()
         {
             return (IsMonomorphism() && IsEpimorphism());
+        }
+
+        public string AllClassifications()
+        {
+            string classifications = "";
+
+            if (IsFunctional())
+            {
+                classifications += "Funcional ";
+            }
+            if (IsInjector())
+            {
+                classifications += "Injetora ";
+            }
+            if (IsTotal())
+            {
+                classifications += "Total ";
+            }
+            if (IsOverjet())
+            {
+                classifications += "Sobrejetora ";
+            }
+            if (IsMonomorphism())
+            {
+                classifications += "Monomórfica ";
+            }
+            if (IsEpimorphism())
+            {
+                classifications += "Epimórfica ";
+            }
+            if (IsIsomorphism())
+            {
+                classifications += "Isomórfica";
+            }
+
+            classifications = classifications.Trim();
+            return classifications.Replace(" ", ", ");
         }
     }
 }

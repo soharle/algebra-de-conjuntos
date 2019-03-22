@@ -1,9 +1,6 @@
 ﻿using algebra_de_conjuntos.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace algebra_de_conjuntos.Actions
 {
@@ -12,6 +9,7 @@ namespace algebra_de_conjuntos.Actions
         public string Name { get; set; }
         public List<ElementWithValue> Domain { get; set; }
         public List<ElementWithValue> Codomain { get; set; }
+        private SetPair LastOperation { get; set; }
 
         public SetPair LessThan()
         {
@@ -71,7 +69,7 @@ namespace algebra_de_conjuntos.Actions
                     }
                 }
             }
-
+            LastOperation = set;
             return set;
         }
 
@@ -100,7 +98,14 @@ namespace algebra_de_conjuntos.Actions
                 }
             }
 
+            LastOperation = composed;
             return composed;
+        }
+
+        public string AllClassifications()
+        {
+            Classification classification = new Classification(LastOperation, Domain, Codomain);
+            return classification.AllClassifications();
         }
     }
 }

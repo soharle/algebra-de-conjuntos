@@ -1,9 +1,6 @@
 ﻿using algebra_de_conjuntos.utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace algebra_de_conjuntos.Models
 {
